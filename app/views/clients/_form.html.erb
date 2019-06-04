@@ -1,0 +1,13 @@
+<%= simple_form_for @client do |f| %>
+  <%= f.input :name, label: 'Nome', placeholder: 'Escreva o nome'  %>
+  <%= f.input :email, placeholder: 'Escreva o E-mail do Cliente' %>
+    <label for="matricula">Matricula</label>
+    
+  <%= f.text_field :matricula, label: 'Numero 2', 'data-mask': 'd1555545', required: true, placeholder: 'Digite a Matricula'%>
+  <label for="phone">Telefone 1</label>
+  <%= f.text_field :phone, class: 'form-control', label: 'Numero 2', 'data-mask': '(00)0000-0000', required: true, placeholder: '(00)0000-0000'  %>
+  <label for="department">Telefone 2</label>
+  <%= f.text_field :department, label: 'Numero 2', class: 'form-control', 'data-mask': '(00)0000-0000', placeholder: '(00)0000-0000'%>
+  <%= f.button :submit,'Criar', class: 'btn-small' %>
+  <%= link_to 'Voltar',clients_path, class: 'waves-effect waves-light btn-small blue' %>
+<% end %>

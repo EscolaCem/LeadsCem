@@ -1,0 +1,9 @@
+<%= simple_form_for @user do |f| %>
+  <%= f.input :email%>
+  <%= f.input :name %>
+  <%= f.input :kind %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.association :company,label: 'Curso', collection: @companies, include_blank: "Selecione uma Companhia", required: true %>
+  <%= f.button :submit %>
+<% end %>

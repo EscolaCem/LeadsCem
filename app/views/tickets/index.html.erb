@@ -1,0 +1,175 @@
+<p id="notice"><%= notice %></p>
+<style type="text/css">
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 0.5; /* Firefox */
+}
+.form-group.c3{
+  display:inline-block;
+  width:auto;
+}
+
+</style>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('.datepicker').datepicker({
+    i18n: {
+    months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
+    weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+    today: 'Hoje',
+    clear: 'Limpar',
+    cancel: 'Sair',
+    done: 'Confirmar',
+    labelMonthNext: 'Próximo mês',
+    labelMonthPrev: 'Mês anterior',
+    labelMonthSelect: 'Selecione um mês',
+    labelYearSelect: 'Selecione um ano',
+    selectMonths: true,
+    selectYears: 15,
+      },
+    closeOnSelect: true,
+    format: 'dd mmmm, yyyy',
+    container: 'body',
+  });
+});
+</script>
+<%= search_form_for @search do |f| %>
+  
+
+<% if current_user.superadmin?%>
+<div class="form-group c1"><%= f.search_field :status_cont, label: 'Status', placeholder: "Status", include_blank: false %></div>
+<div class="form-group c1"><%= f.select :user_id_eq, options_from_collection_for_select(User.all, "id", "name", @search.user_id_eq), include_blank: "Criou Leads" %> </div>
+ <div class="form-group c1"><%= f.select :responsible_id_eq, options_from_collection_for_select(Responsible.all, "id", "name", @search.responsible_id_eq), include_blank: "Responsável" %> </div>
+ <div class="form-group c1"><%= f.select :course_id_eq, options_from_collection_for_select(Course.all, "id", "name", @search.course_id_eq), include_blank: "Curso" %> </div>
+ <div class="form-group c1"><%= f.select :company_id_eq, options_from_collection_for_select(Company.all, "id", "name", @search.company_id_eq), include_blank: "Selecione a Unidade" %></div>
+ <div class="form-group c1"><%= f.select :source_id_eq, options_from_collection_for_select(Source.all, "id", "name", @search.source_id_eq), include_blank: "Origem" %> </div>
+ <div class="form-group c1"><%= f.search_field :name_cont, label: 'Nome', placeholder: "Nome", include_blank: false %>
+
+</div>
+      <% else %>
+  <div class="form-group c1"><%= f.select :source_id_eq, options_from_collection_for_select(Source.all, "id", "name", @search.source_id_eq), include_blank: "Origem" %> </div>
+<div class="form-group c1"><%= f.search_field :status_cont, label: 'Status', placeholder: "Status", include_blank: false %></div>
+  <div class="form-group c1"><%= f.select :course_id_eq, options_from_collection_for_select(Course.where(company_id: current_user.company_id), "id", "name", @search.course_id_eq), include_blank: "Curso" %> </div>
+  <div class="form-group c1"><%= f.select :responsible_id_eq, options_from_collection_for_select(Responsible.where(company_id: current_user.company_id), "id", "name", @search.responsible_id_eq), include_blank: "Responsável" %> </div>
+<div class="form-group c1"><%= f.select :user_id_eq, options_from_collection_for_select(User.where(company_id: current_user.company_id), "id", "name", @search.user_id_eq), include_blank: "Criou Leads" %> </div>
+<div class="form-group c1"><%= f.search_field :name_cont, label: 'Nome', placeholder: "Nome", include_blank: false %></div>
+
+
+        <% end %>
+<div class="form-group c2">
+         <%= f.search_field :created_at_gteq,:class => "datepicker", placeholder: "Data Inicio" %>
+         </div>
+         <div class="form-group c2">
+           <%= f.search_field :created_at_lteq,:class => "datepicker",placeholder: "Data Final"%>
+         </div>
+
+     
+    <p>
+
+    <button class="btn-flat" type="submit" name="action">
+       <i class="material-icons">search</i>
+     </button>
+ <a href='<%=tickets_path%>' class='btn-flat btn-search'>
+      <i class="material-icons">clear</i>
+    </a>
+  </p>
+<% end %>
+  <p class="hide-on-small-only">Exibindo <%= @search.result.count %> registros.</p>
+    <h4>Leads</h4>
+    <div class="row">
+      <%= link_to 'Novo Leads', new_ticket_path, class: 'waves-effect waves-light btn-small blue'%>
+      </a>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Email</th>
+          <th><%= sort_link(@search, :status, "Status") %></th>
+          <th>Curso</th>
+          <th>Origem</th>
+          <th>Responsável</th>
+          <th>Criou Leads</th>
+          <th>Data/Hora</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @tickets.each do |ticket| %>
+
+          <tr>
+          
+            <td><%= ticket.name %></td>
+            <td><%= ticket.telephone %></td>
+            <td><%= ticket.email %></td>
+            <% if ticket.status == "Novo"%>
+            <td> <span class="new badge green " data-badge-caption=""><%= ticket.status %></td></span>
+            <% end %>
+            <% if ticket.status == "Negociação"%>
+            <td> <span class="new badge  green darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+             <% end %>
+            <% if ticket.status == "Agendado"%>
+            <td> <span class="new badge deep-orange darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+            <% end %>
+            <% if ticket.status == "Matriculado"%>
+            <td> <span class="new badge  light-blue darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+            <% end %>
+            <% if ticket.status == "SemPotencial"%>
+            <td> <span class="new badge grey darken-1"data-badge-caption=""><%= ticket.status %></td></span>
+            <% end %>
+            <% if ticket.status == "NãoAtende"%>
+            <td> <span class="new badge red"data-badge-caption=""><%= ticket.status %></td></span>
+            <% end %>
+             <% if ticket.status == "Inscrição"%>
+            <td> <span class="new badge purple darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+            <% end %>
+            <td><%= ticket.course.name %></td>
+            <td><%= ticket.source.name %></td>
+            <td><%= ticket.responsible.name %></td>
+            <td><%= ticket.user.name %></td>
+            <td><%= ticket.created_at %></td>
+            <td><%= link_to 'Mostrar Ações', ticket %></td>
+            <td><%= link_to 'Editar status', edit_ticket_path(ticket) %></td>
+
+          <% end %>
+        </tbody>
+      </table>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>    
+<script type="text/javascript">
+
+$(document).ready(function (){
+   $("#myTable").dataTable({
+    
+     columnDefs: [
+        { targets: [5], visible: false},
+        { targets: '_all', visible: true },
+               
+    ],
+                "bJQueryUI": true,
+                "oLanguage": {
+                    "sProcessing":   "Processando...",
+                    "sLengthMenu":   "Mostrar _MENU_ registros",
+                    "sZeroRecords":  "Não foram encontrados resultados",
+                    "sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty":    "Mostrando de 0 até 0 de 0 registros",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix":  "",
+                    "sSearch":       "Buscar:",
+                    "sUrl":          "",
+                    "oPaginate": {
+                        "sFirst":    "Primeiro",
+                        "sPrevious": "Anterior",
+                        "sNext":     "Seguinte",
+                        "sLast":     "Último"
+                    }
+                }                
+            });   
+});
+</script>

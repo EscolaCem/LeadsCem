@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<head>
+
+  <title>Leads</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'leads', media: 'all', 'data-turbolinks-track': 'reload'%>
+  <%= javascript_include_tag 'leads', 'data-turbolinks-track': 'reload'%>
+  <%= favicon_link_tag asset_path('favicon.png') %>
+</head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Participe!</title>
+    <style type="text/css">
+
+      body,
+      header,
+      html .view {
+        height: 110vh;
+
+      }
+
+      .form {
+        opacity: 0.8;
+        filter: alpha(opacity=50);
+        /* For IE8 and earlier */
+        /* Centralizar o formulário na pagina */
+        margin: 0 auto;
+        width: 400px;
+        font-family: sans-serif;
+        /* Ver o esboço do formulário */
+        padding: 1em;
+        border-radius: 1em;
+        padding-right: 1em;
+        background-color: #000000;
+      }
+      .fade {
+
+        opacity: 0.6;
+      }
+      .fade:hover {
+
+        opacity: 1;
+      }
+      .notice {
+          color: white;
+      }
+    </style>
+
+  <body>
+
+    <div class="view full-page-intro" style="background-image: url('http://escolacem.com.br/img/veja-com-enem-editada.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+      <!-- Mask & flexbox options-->
+      <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class='col-md-8 offset-md-2 text-sm-center'>
+
+            <center>
+              <span style="color: white">
+                <h1 class="display-4 font-weight-bold">Se inscreva!</h1></span></center>
+
+            <hr class="hr-light ">
+
+            <p class="light">
+              <center>
+                <strong>
+                  <span style="color: white">Cadastre e descubra as vantagens de participar da escola que mais aprovou em universidades de 2019 em Manhuaçu.</span></strong>
+              </center>
+            </p>
+          </div>
+
+          <div class="col-md-6 col-xl-5 mb-4">
+
+            <div class="card-body">
+
+              <hr>
+              <div class="form">
+
+                <class="center">
+
+                  <h5 class="dark-grey-text text-center">
+                    <span style="color: white">
+                      Preencha o Formulário
+                    </span>
+                  </h5>
+                  <hr>
+                  <%= simple_form_for @ticket do |f| %>
+                  <div class="row">
+                    <div class="input-field">
+                      <span style="color: white">
+                        <div class="md-form">
+                          <%= f.input :name, label: 'Nome', placeholder: 'Digite seu nome', wrapper_html: { class: 'm4 s12' }, include_blank: true %>
+                        </div>
+                        <div class="md-form">
+                          <%= f.input :email, label: 'Email', placeholder: 'Digite seu email', include_blank: true %>
+                        </div>
+                        <div class="md-form">
+                        <label>Telefone</label>
+                      </div>
+                      <%= f.text_field :telephone, class: 'form-control', 'data-mask': '(00)00000-0000',placeholder: 'Digite seu telefone', required: true %>
+                    </div>
+                      <div class="field">
+                        <%= f.hidden_field :status, :value => 'Novo' %>
+                      </div>
+                      <div class="field">
+                        <%= f.hidden_field :course_id, :value => 1 %>
+                      </div>
+                      <div class="field">
+                        <%= f.hidden_field :company_id, :value => 1 %>
+                      </div>
+                      <div class="field">
+                        <%= f.hidden_field :user_id, :value => 1 %>
+                      </div>
+                      <center>
+                        <div class="notice"><p id="notice"><%= notice %></p></div>
+
+                            <div class="fade"><%= f.submit "Enviar" %></center>
+
+
+
+                        </div>
+                      </div>
+                    <% end %>
+                  </span>
+                </div>
+
+              </form>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>

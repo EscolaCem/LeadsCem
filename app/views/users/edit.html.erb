@@ -1,0 +1,41 @@
+<h5>Editar usuário</h5>
+<% if current_user && (current_user.superadmin? || current_user.manager?)%>
+  <% else controller.redirect_to root_path %><% end %>
+  <%= simple_form_for @user do |f| %>
+  <div class="row">
+    <div class="input-field">
+      <%= f.input :email, label: 'Email:', error: 'Email é obrigatório, digite um' %>
+      <%= f.input :name, label: 'Nome:', error: 'Nome é obrigatório, digite um' %>
+       <% if current_user && (current_user.email == 'italo.volotao@escolacem.com.br') || current_user.email == 'sabrina.paiva@escolacem.com.br' %>
+    <%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.where(company_id: current_user.company_id).order(id: :desc)
+                   %> 
+                   <% elsif current_user && (current_user.email == 'vanessa.souza@escolacem.com.br'|| current_user.email == 'joaopedro@admin' || current_user.email == 'fabia.vargas@escolacem.com.br' ) %>   
+    <%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.all.order(id: :desc)
+                   %>                  
+                   <% end %>
+      <% if current_user.superadmin? %>
+        <%= f.input :kind,label: 'Nível', collection: ['salesman','manager','superadmin'], include_blank: "Selecione o nível de Autorização", required: true %>
+        <% elsif current_user.manager? %>
+          <%= f.input :kind,label: 'Nível', collection: ['salesman'], include_blank: "Selecione o nível de Autorização", required: true %>
+              <% end %>
+        <% if current_user.superadmin? %>
+<div class="p"><%= f.association :company,
+                  label: 'Unidade:',
+                  include_blank: 'Selecione a Unidade',
+                  collection: Company.all.order(:id)
+                   %> 
+             <% elsif current_user.manager? %>
+            <div class="field">
+              <%= f.hidden_field :company_id, :value => current_user.company_id %>
+            </div>
+          <% end %>
+          <%= f.input :password, label: 'Mudar Senha', placeholder: 'Digita uma nova senha', hint: ("Minimo de 6 caracteres") %>
+          <%= f.button :submit %>
+          <%= link_to 'Voltar',users_path, class: 'waves-effect waves-light btn-small blue' %>
+        <% end %>

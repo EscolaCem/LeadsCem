@@ -1,0 +1,6 @@
+
+<%= simple_form_for @responsible do |f| %>
+  <%= f.input :name, label: 'Nome', placeholder: "Digite o nome do Responsável" %>
+  <%= f.button :submit, 'Criar' %>
+  <%= link_to 'Voltar',responsibles_path, class: 'waves-effect waves-light btn-small blue' %>
+<% end %>

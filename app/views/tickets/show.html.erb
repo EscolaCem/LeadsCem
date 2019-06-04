@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+<style>
+.select {
+      -webkit-appearance: none;  /* Remove estilo padrão do Chrome */
+   -moz-appearance: none; /* Remove estilo padrão do FireFox */
+   appearance: none; /* Remove estilo padrão do FireFox*/
+   background-position: 218px center;  /*Posição da imagem do background*/
+   width: 250px; /* Tamanho do select, maior que o tamanho da div "div-select" */
+   height:40px; /* Altura do select, importante para que tenha a mesma altura em todo os navegadores */
+   border:1px solid #ddd;
+  
+</style>
+<p>
+  <strong>Nome:</strong>
+  <%= @ticket.name %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= @ticket.telephone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @ticket.email %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @ticket.status %>
+</p>
+
+<p>
+  <strong>Curso:</strong>
+  <%= @ticket.course.name %>
+</p>
+<p>
+  <strong>Responsável Leads:</strong>
+  <%= @ticket.responsible.name %>
+</p>
+
+<p>
+  <strong>Criou Leads:</strong>
+  <%= @ticket.user.name %>
+</p>
+
+
+
+  <strong>Ações:</strong>
+<% @activities.each do |a| %>
+</br>
+
+<div class="activity">
+
+<%= "Descrição: #{a.description}" %></br>
+<%= "Meio(Comunicação): #{a.mid}"%></br>
+<% if current_user.email == "italo.volotao@escolacem.com.br" ||current_user.email == "cleiton.goncalves@escolacem.com.br" || current_user.email == "paloma.vieira@escolacem.com.br"%>
+<%= "Indicações: #{a.indication}"%></br>
+  <% end %>
+<%= "Data/Hora: #{a.created_at}"%>
+<br>
+<%= "Criou ação: #{a.user.name}"%>
+
+</div>
+<%end%>
+
+<%= form_for [@ticket, @activity] do |f| %>
+
+<div class="select"><%= f.select :mid, ['Outros','Ligação', 'Whatsapp', 'Visita'], { prompt: "Selecione a Comunicação" }, { class: "form-control", required: true }%></div>
+<% if current_user.email == "italo.volotao@escolacem.com.br" ||current_user.email == "cleiton.goncalves@escolacem.com.br" || current_user.email == "paloma.vieira@escolacem.com.br"%>
+<div class="select"><%= f.select :indication, [[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]], { prompt: "Quantidade de Indicações" } %></div>
+<% end %>
+<br><%= f.text_area :description, required: true%>
+
+</br>
+<%= f.button :Criar ,class: 'waves-effect waves-light btn-small blue'%> |
+<%=  link_to 'Editar Status', edit_ticket_path(@ticket),class: "waves-effect waves-light btn-small" %>
+
+<% end %>
+
+
+<%= link_to 'Voltar', root_path %>

@@ -1,0 +1,9 @@
+
+<%= simple_form_for @company do |f| %>
+<% if current_user && (current_user.superadmin?)%>
+  <% else controller.redirect_to root_path %>
+        <% end %>
+  <%= f.input :name, label: 'Nome', placeholder: "Digite o nome do Curso" %>
+  <%= f.button :submit, 'Criar' %>
+  <%= link_to 'Voltar',companies_path, class: 'waves-effect waves-light btn-small blue' %>
+<% end %>

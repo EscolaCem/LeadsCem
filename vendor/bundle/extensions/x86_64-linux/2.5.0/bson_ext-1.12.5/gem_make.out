@@ -1,0 +1,21 @@
+current directory: /home/raphael/Backuphelpdesk/HelpDesk/vendor/bundle/gems/bson_ext-1.12.5/ext/cbson
+/home/raphael/.rvm/rubies/ruby-2.5.1/bin/ruby -r ./siteconf20190130-6011-1s68425.rb extconf.rb
+checking for asprintf()... yes
+checking for ruby/st.h... yes
+checking for ruby/regex.h... yes
+checking for ruby/encoding.h... yes
+creating Makefile
+
+current directory: /home/raphael/Backuphelpdesk/HelpDesk/vendor/bundle/gems/bson_ext-1.12.5/ext/cbson
+make "DESTDIR=" clean
+
+current directory: /home/raphael/Backuphelpdesk/HelpDesk/vendor/bundle/gems/bson_ext-1.12.5/ext/cbson
+make "DESTDIR="
+compiling bson_buffer.c
+compiling cbson.c
+compiling encoding_helpers.c
+linking shared-object bson_ext/cbson.so
+
+current directory: /home/raphael/Backuphelpdesk/HelpDesk/vendor/bundle/gems/bson_ext-1.12.5/ext/cbson
+make "DESTDIR=" install
+/usr/bin/install -m 0755 cbson.so ./.gem.20190130-6011-bg0rha/bson_ext

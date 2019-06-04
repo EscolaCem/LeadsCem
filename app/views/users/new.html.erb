@@ -1,0 +1,40 @@
+<h5>Novo usuário</h5>
+<% if current_user && (current_user.superadmin? || current_user.manager?)%>
+  <% else controller.redirect_to root_path %><% end %>
+  <%= simple_form_for(User.new, as: resource_name, url: '/users') do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :email,placeholder: 'Digite o E-mail do usuário', required: true, autofocus: true , input_html: { autocomplete: "email" }%>
+    <%= f.input :name,label: 'Nome',placeholder: 'Digite o Nome do Usuário', required: true %>
+    <% if current_user && (current_user.email == 'italo.volotao@escolacem.com.br') || current_user.email == 'sabrina.paiva@escolacem.com.br' %>
+    <%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.where(company_id: current_user.company_id).order(id: :desc)
+                   %> 
+                   <% elsif current_user && (current_user.email == 'vanessa.souza@escolacem.com.br' || current_user.email == 'joaopedro@admin' || current_user.email == 'joaovictor@admin')  %>   
+    <%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.all.order(id: :desc)
+                   %>                  
+                   <% end %>
+    <% if current_user.superadmin?%>
+      <%= f.association :company,label: 'Unidade', collection: @companies, include_blank: "Selecione uma Unidade", required: true %>
+      <% elsif current_user.manager? %>
+        <div class="field">
+          <%= f.hidden_field :company_id, :value => current_user.company_id %>
+        </div>
+      <% end %>
+      <% if current_user.superadmin? %>
+        <%= f.input :kind,label: 'Nível', collection: ['salesman','manager'], include_blank: "Selecione o nível de Autorização", required: true %>
+        <% elsif current_user.manager? %>
+          <%= f.input :kind,label: 'Nível', collection: ['salesman'], include_blank: "Selecione o nível de Autorização", required: true %>
+              <% end %>
+      <%= f.input :password,placeholder: 'Digite uma senha', required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), hint: ("Minimo de 6 caracteres"), input_html: { autocomplete: "new-password" } %>
+      <%= f.input :password_confirmation,placeholder: 'Confirme a senha digitada', required: true, input_html: { autocomplete: "new-password" } %>
+    </div>
+    <%= f.button :submit, "Criar", class: "" %>
+    <%= link_to 'Voltar', users_path, class: 'waves-effect waves-light btn-small blue'%>
+
+  <% end %>

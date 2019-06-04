@@ -1,0 +1,87 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/offline-exporting.src.js"></script>
+
+
+<style>
+h5 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+h5:before, h5:after {
+  background-color: #ddd;
+  content: '\a0';
+  flex-grow: 1;
+  height: 1px;
+  position: relative;
+  top: 0.5em;
+}
+h5:before {
+  margin-right:10px;
+}
+h5:after {
+  margin-left:10px;
+}
+.figure {
+  float: right;
+  width: 48%;
+  border: thin silver solid;
+  margin: 0.5em;
+  padding: 0.5em;
+  text-align: center;
+  font-style: italic;
+  font-size: smaller;
+  text-indent: 0;
+}
+img.scaled {
+  width: 100%;
+}
+</style>
+ 
+<% if current_user && (current_user.email == 'italo.volotao@escolacem.com.br' || current_user.email == 'sabrina.paiva@escolacem.com.br')  %>
+<center><h5>Dashboard</h5></center>
+
+<div class="figure"><center><h6>Comunicação por WhatsApp(Dia). </h6></center>
+  <%= column_chart (User.where(company_id: current_user.company_id ).map{|u| [u.name, u.activities.by_day.where(mid: "Whatsapp").count(Date.today)]}),label: 'WhatsApp', xtitle: 'Nomes', ytitle: 'Contador',colors: ['#7FFF00']%></div>
+  <div class="figure"><center><h6>Indicações ao Dia </h6></center>
+  <%= column_chart Activity.by_day.group(:user_id).sum(:indication), xtitle: '5 - Italo 6 - Cleiton 7 - Paloma ', label: 'Indicações' %></div>
+    <%# <%= column_chart (User.where(company_id: current_user.company_id ).map{|u| [u.name, u.activities.group(:mid).sum(:indication).count(Date.today)]}),label: 'WhatsApp', xtitle: 'Nomes', ytitle: 'Contador',colors: ['#7FFF00']%>
+    <%# <%= column_chart (User.where(:company_id => [1]).map{|u| [u.name, u.activities.where(:company_id => [2]).count(Date.today)]}),label: 'Leads', xtitle: 'Nomes', ytitle: 'Contador',colors: ['#7FFF00']%>
+  <%# <div class="figure"><center><h6>Responsáveis já gerados. </h6></center>
+  <%= column_chart Responsible.all.map { |responsible|{name: responsible.name, data: responsible.tickets.group_by_month_of_year(:created_at,  format: "%b" ).count}} %> 
+    <div class="figure"><center><h6>Comunicação por Ligação(Dia) </h6></center>
+  <%= column_chart (User.where(company_id: current_user.company_id ).map{|u| [u.name, u.activities.by_day.where(mid: "Ligação").count(Date.today)]}),label: 'Ligações', xtitle: 'Nomes', ytitle: 'Contador',colors: ['#DC143C']%></div>
+  <div class="figure"><center><h6>Comunicação por Visita(Dia). </h6></center>
+  <%= column_chart (User.where(company_id: current_user.company_id ).map{|u| [u.name, u.activities.by_day.where(mid: "Visita").count(Date.today)]}),label: 'Visita', xtitle: 'Nomes', ytitle: 'Contador',colors: ['#7FFF00']%></div>
+   <div class="figure"><center><h6>Total de ações já criadas. </h6></center>
+<%= column_chart (User.where(company_id: current_user.company_id).map{|u| [u.name, u.activities.count]}), ytitle: 'Contador',label: 'Ações',xtitle: 'Nomes', colors: ['#1682B4']%></div>
+   <div class="figure"><center><h6>Total de leads já criados </h6></center>
+<%= column_chart (User.where(company_id: current_user.company_id).map{|u| [u.name, u.tickets.count]}), ytitle: 'Contador',label: 'Leads',xtitle: 'Nomes',colors: ['#368211'] %></div>
+<div class="figure"><center><h6>Origens já geradas. </h6></center>
+<%= column_chart Source.all.map { |source|{name: source.name, data: source.tickets.group_by_month_of_year(:created_at, format: "%b").count(Date.today)}} %></div>
+<div class="figure"><center><h6>Total de Leads por Status </h6></center>
+<%= column_chart Ticket.group(:status).group_by_week(:created_at, format: "%d, %b").count %>
+
+            <% end %>
+<% if current_user.superadmin? %>
+<center><h6>Total de ações já criadas.</h6></center>
+<%= column_chart User.all.map { |user|{name: user.name, data: user.activities.group_by_month_of_year(:created_at, format: "%b").count(Date.today)}} %>
+ <center><h6>Total de Leads já Criados</h6></center>
+<%= column_chart User.all.map { |user|{name: user.name, data: user.tickets.group_by_month_of_year(:created_at, format: "%b").count(Date.today)}} %>
+<center><h6>Total de Leads por Status</h6></center>
+<%= column_chart Ticket.group(:status).group_by_day(:created_at, format: "%d, %b").count %>
+
+<center><h6>Origens já geradas.</h6></center>
+<%= column_chart Source.all.map { |source|{name: source.name, data: source.tickets.group_by_month_of_year(:created_at, format: "%b").count(Date.today)}} %>
+<center><h6> Leads Gerados (Unopar)</h6></center>
+    <%= column_chart (User.where(:company_id => [3]).map{|u| [u.name, u.tickets.where(:company_id => [3]).count(Date.today)]}),label: 'Leads', xtitle: 'Nomes', ytitle: 'Contador',colors: ['#7FFF00']%>
+<center><h6> Leads Gerados (Cem)</h6></center>
+    <%= column_chart (User.where(:company_id => [2]).map{|u| [u.name, u.tickets.where(:company_id => [2]).count(Date.today)]}),label: 'Leads', xtitle: 'Nomes', ytitle: 'Contador',colors: ['#7FFF00']%>
+<center><h6> Leads Gerados (Mix)</h6></center>
+    <%= pie_chart (User.where(:company_id => [1]).map{|u| [u.name, u.tickets.where(:company_id => [1]).count(Date.today)]}),label: 'Leads', xtitle: 'Nomes', ytitle: 'Contador'%>
+    
+<% end %>

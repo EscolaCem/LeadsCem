@@ -1,0 +1,57 @@
+<h5> Novo Leads </h5>
+<%= simple_form_for @ticket do |f| %>
+<div class="row">
+  <div class="input-field">
+    <%= f.input :name, label: 'Nome',placeholder: 'Escreva o nome', wrapper_html: { class: 'm4 s12' }, include_blank: true %>
+    <b><label>Telefone</label></b>
+    <%= f.text_field :telephone, 'data-mask': '(00)00000-0000', placeholder: 'Adicione o Telefone', label: 'Telefone'%>
+    <%= f.input :email, label: 'Email',placeholder: 'Escreva o Email', wrapper_html: { class: 'm4 s12' } %>
+     <% if current_user && (current_user.email == 'sabrina.paiva@escolacem.com.br' || current_user.email == 'jusselma.campos@escolacem.com.br' || current_user.email == 'nova@escolacem.com.br') %>
+    <%= f.input :status, label: 'Status', collection: ["NãoAtende","Novo","Negociação", "Inscrição","Matriculado","SemPotencial"], include_blank: "Selecione o Status" %>
+      <% elsif current_user && (current_user.email == 'italo.volotao@escolacem.com.br' || current_user.email == 'cleiton.goncalves@escolacem.com.br' || current_user.email == 'paloma.vieira@escolacem.com.br' || current_user.email == 'sabrina.pazeli@escolacem.com.br' || current_user.email == 'manuela.xavier@escolacem.com.br') %>
+    <%= f.input :status, label: 'Status', collection: ["NãoAtende","Novo","Negociação","Agendado","Matriculado","SemPotencial"], include_blank: "Selecione o Status" %>
+      <% elsif current_user.superadmin? || current_user && (current_user.email == 'fabia.vargas@escolacem.com.br' || current_user.email == 'gabi.lacerda@escolacem.com.br') %>
+              <%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.all.order(:company_id)
+                  %>
+               <%= f.association :company,
+                  label: 'Unidade:',
+                  include_blank: 'Selecione a Unidade',
+                  collection: Company.all.order(:name)
+                  %>
+       <div class="field">
+
+                    <%= f.hidden_field :status, :value => "Novo" %>
+                      </div>
+                      <% end %>
+     <%= f.association :source,
+                  label: 'Origem:',
+                  include_blank: 'Selecione a Origem',
+                  collection: Source.all.order(:name)
+                  %>
+    <% if current_user && (current_user.email == 'italo.volotao@escolacem.com.br' || current_user.email == 'sabrina.paiva@escolacem.com.br' || current_user.email == 'manuela.xavier@escolacem.com.br'|| current_user.email == 'sabrina.pazeli@escolacem.com.br') %>
+    <%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.where(company_id: current_user.company_id).order(id: :desc)
+                  %>
+
+          <div class="field">
+                      </div>
+                      <% end %>
+      
+       <% if current_user && (current_user.email == 'vanessa.souza@escolacem.com.br' || current_user.email == 'fabia.vargas@escolacem.com.br' ||
+       current_user.email == 'joaopedro@admin' || current_user.email == 'gabi.lacerda@escolacem.com.br'|| current_user.email == 'joaovictor@admin')%> 
+      <%= f.association :course, label: 'Curso', collection: Course.all.order(:name), prompt: 'Selecione o Curso'%>
+      <% else %>
+            <%= f.association :course, label: 'Curso', collection: Course.where(company_id: current_user.company_id).order(:name), prompt: 'Selecione o Curso'%>
+                  <%= f.hidden_field :responsible_id, :value => current_user.responsible_id %>
+
+        <% end %>
+        
+        <%= f.button :submit, 'Criar', class: 'btn-small' %>
+        <%= link_to 'Voltar',tickets_path, class: 'waves-effect waves-light btn-small blue' %>
+
+    <% end %>

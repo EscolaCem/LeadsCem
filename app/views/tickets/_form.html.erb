@@ -1,0 +1,10 @@
+<%= simple_form_for @ticket do |f| %>
+<div class="row">
+  <div class="input-field">
+    <%= f.association :client,label: 'Aluno(a)', collection: @clients, include_blank: "Selecione um Aluno" %>
+    <%= f.association :course,label: 'Curso', collection: @courses, include_blank: "Selecione um Curso"%>
+    <%= f.input :status, collection: ["Atendimento","Finalizado"], include_blank: false %>
+    <%= f.button :submit, 'Criar', class: 'btn-small' %>
+    <%= link_to 'Voltar',tickets_path, class: 'waves-effect waves-light btn-small blue' %>
+
+  <% end %>

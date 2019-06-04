@@ -1,0 +1,27 @@
+body {
+   display: flex;
+   min-height: 100vh;
+   flex-direction: column;
+   main {
+     flex: 1 0 auto;
+   }
+  footer{
+    .page-footer{
+      opacity: 1.0;
+
+      background: linear-gradient(to right, LightSeaGreen	, Blue); 
+      .copyright{
+        padding-bottom: 10px;
+        color: white;
+        .copyright-link{
+          color: white;
+          cursor: pointer;
+        }
+        .copyright-icon{
+          font-size: 12px;
+          color: #1a237e;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<h4>Editar</h4>
+<%= simple_form_for @ticket do |f| %>
+
+      <% if Ticket.where(:company_id => [3]) %>
+    <%= f.input :status, label: 'Status', collection: ["NãoAtende","Novo","Negociação", "Inscrição","Matriculado","SemPotencial"], include_blank: "Selecione o Status" %>
+      <% elsif Ticket.where(:company_id => [1]) %>
+    <%= f.input :status, label: 'Status', collection: ["NãoAtende","Novo","Negociação","Agendado","Matriculado","SemPotencial"], include_blank: "Selecione o Status" %>
+          <% elsif Ticket.where(:company_id => [2]) %>
+    <%= f.input :status, label: 'Status', collection: ["NãoAtende","Novo","Negociação","Agendado","Matriculado","SemPotencial"], include_blank: "Selecione o Status" %>
+                          <% end %>
+ <% if current_user && (current_user.email == "italo.volotao@escolacem.com.br"|| current_user.email == "sabrina.paiva@escolacem.com.br" )  %>
+ <div class="p"><%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.where(company_id: current_user.company_id).order(:name)
+                   %>  
+<div class="p"><%= f.association :course,
+                  label: 'Curso:',
+                  include_blank: 'Selecione Curso',
+                  collection: Course.where(company_id: current_user.company_id).order(:name)
+                   %>  
+    <% elsif Ticket.where(:company_id => [2,4])  %>
+                <div class="p"><%= f.association :responsible,
+                  label: 'Responsável:',
+                  include_blank: 'Selecione o Responsável',
+                  collection: Responsible.all.order(:name)
+                   %>  
+                    <div class="p"><%= f.association :course,
+                  label: 'Curso:',
+                  include_blank: 'Selecione a Curso',
+                  collection: Course.all.order(:name)
+                   %>  
+                   <% end %>
+<%= f.button :submit, "Atualizar" %>
+<%= link_to 'Voltar',tickets_path, class: 'waves-effect waves-light btn-small blue' %>
+<% end %>

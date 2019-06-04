@@ -1,0 +1,124 @@
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------
+NavigationTest: test_Renders_pdf_to_string
+------------------------------------------
+  Rendering reports/sample.pdf.prawn
+  Rendered reports/sample.pdf.prawn (87.9ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------
+NavigationTest: test_Registers_:prawn_template_handler
+------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+NavigationTest: test_Registers_:pdf_mime_type
+---------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------
+NavigationTest: test_Renders_sample_pdf_action
+----------------------------------------------
+Started GET "/reports/sample?format=pdf" for 127.0.0.1 at 2018-06-28 06:47:20 -0700
+Processing by ReportsController#sample as PDF
+  Rendering reports/sample.pdf.prawn
+  Rendered reports/sample.pdf.prawn (17.0ms)
+Completed 200 OK in 22ms (Views: 19.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------------
+NavigationTest: test_Renders_table_pdf_action_using_auto-required_plugin_Prawn-Table
+------------------------------------------------------------------------------------
+Started GET "/reports/table?format=pdf" for 127.0.0.1 at 2018-06-28 06:47:20 -0700
+Processing by ReportsController#table as PDF
+  Rendering reports/table.pdf.prawn
+  Rendered reports/table.pdf.prawn (22.8ms)
+Completed 200 OK in 27ms (Views: 23.6ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------
+NavigationTest: test_Renders_html_action
+----------------------------------------
+Started GET "/reports/sample" for 127.0.0.1 at 2018-06-28 06:47:20 -0700
+Processing by ReportsController#sample as HTML
+  Rendering reports/sample.html.erb within layouts/application
+  Rendered reports/sample.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 325ms (Views: 321.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------
+NavigationTest: test_render_to_string_in_mailer
+-----------------------------------------------
+  Rendering reports/sample.pdf.prawn
+  Rendered reports/sample.pdf.prawn (18.9ms)
+  Rendering reports_mailer/send_report.html.erb
+  Rendered reports_mailer/send_report.html.erb (0.4ms)
+ReportsMailer#send_report: processed outbound mail in 367.1ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------
+PrawnRailsTest: test_text_can_take_non_strings
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------
+PrawnRailsTest: test_text_can_take_non_strings
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------------
+NavigationTest: test_Renders_table_pdf_action_using_auto-required_plugin_Prawn-Table
+------------------------------------------------------------------------------------
+Started GET "/reports/table?format=pdf" for 127.0.0.1 at 2018-06-28 06:53:41 -0700
+Processing by ReportsController#table as PDF
+  Rendering reports/table.pdf.prawn
+  Rendered reports/table.pdf.prawn (16.8ms)
+Completed 200 OK in 31ms (Views: 27.5ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------
+NavigationTest: test_Renders_pdf_to_string
+------------------------------------------
+  Rendering reports/sample.pdf.prawn
+  Rendered reports/sample.pdf.prawn (23.4ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------
+NavigationTest: test_Renders_sample_pdf_action
+----------------------------------------------
+Started GET "/reports/sample?format=pdf" for 127.0.0.1 at 2018-06-28 06:53:41 -0700
+Processing by ReportsController#sample as PDF
+  Rendering reports/sample.pdf.prawn
+  Rendered reports/sample.pdf.prawn (20.2ms)
+Completed 200 OK in 24ms (Views: 21.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------
+NavigationTest: test_render_to_string_in_mailer
+-----------------------------------------------
+  Rendering reports/sample.pdf.prawn
+  Rendered reports/sample.pdf.prawn (18.0ms)
+  Rendering reports_mailer/send_report.html.erb
+  Rendered reports_mailer/send_report.html.erb (2.3ms)
+ReportsMailer#send_report: processed outbound mail in 479.1ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------
+NavigationTest: test_Registers_:prawn_template_handler
+------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------
+NavigationTest: test_Renders_html_action
+----------------------------------------
+Started GET "/reports/sample" for 127.0.0.1 at 2018-06-28 06:53:42 -0700
+Processing by ReportsController#sample as HTML
+  Rendering reports/sample.html.erb within layouts/application
+  Rendered reports/sample.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 279ms (Views: 273.8ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+NavigationTest: test_Registers_:pdf_mime_type
+---------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m

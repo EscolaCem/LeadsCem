@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leads</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'%>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload'%>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+    
+    
+  </head>
+
+  <header>
+    <%= render "partials/nav_bar" %>
+
+  </header>
+  
+
+        
+  <main>
+      
+      <div class="container">
+        <%= yield %>
+
+  </main>
+  <body>
+
+
+      <footer>
+      
+        <%= render "partials/footer" %>
+        
+      </footer>
+    </body>
+  </html>
+  <script>
+   $(".button-collapse").sideNav();
+  </script>

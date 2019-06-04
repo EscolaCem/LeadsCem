@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<br>
+<div class="content pt-0">
+      <%= simple_form_for(@user, :url => { :action => "update_password" } ) do |f| %>
+
+        <div class="row">
+
+          <h5>Nova senha</h5>
+
+            <%= f.input :current_password,
+                        placeholder: 'Digite sua senha atual para modificar',
+                        required: true
+                         %>
+              <%= f.input :password,placeholder: 'Escreva sua nova senha',
+              required: true
+               %>
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <%= f.input :password_confirmation, placeholder: 'Escreva novamente a senha'%>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <%= f.button :submit, 'Alterar', class: 'btn-small btn-primary legitRipple' %>
+            <%= link_to 'Voltar',root_path, class: 'waves-effect waves-light btn-small blue' %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

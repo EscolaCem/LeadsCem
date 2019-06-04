@@ -1,0 +1,554 @@
+<div class="section no-pad-bot" id="index-bann">
+  <div class="">
+    <style type="text/css">
+      .hr {
+
+        font-weight: bold;
+        color: #1a237e;
+        border: none;
+      }
+      .nav-badge .badge {
+  position: absolute; 
+  top: 50%;
+  transform: translate(0,-50%);
+  line-height: 1.4;
+  margin-left: 5px;
+}
+  </style>
+        
+          <ul class="collapsible" data-collapsible="expandable">
+              <li>
+                <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i><a onClick="expandAll();" name="987"class="hr"/><i class="material-icons">assignment_late</i>(Atrasados 3 Dias)</a></div>
+                <div class="collapsible-body"><p>
+
+          <table>
+            <thead>
+              <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Email</th>
+              <th>Curso</th>
+              <th>Status</th>
+              <th>Origem</th>
+              <th>Responsável</th>
+
+              <th colspan="3"></th>
+            </tr>
+              <hr class="hr-red">
+            </thead>
+
+            <tbody>
+              <% @tickets.each do |ticket| %>
+              <% if ticket.is_late?  %>
+
+                  <tr>
+                     <td>
+                <div class="ticket-form">
+                  <%= ticket.name %></td>
+                <td>
+                  <div class="ticket-form">
+                    <%= ticket.telephone %></td>
+                  <td>
+                    <div class="ticket-form">
+                      <%= ticket.email %></td>
+                    <td>
+                      <div class="ticket-form">
+                        <%= ticket.course.name %></td>
+                                <% if ticket.status == "Novo"%>
+                      <td> <span class="new badge green " data-badge-caption=""><%= ticket.status %></td></span>
+                      <% end %>
+                      <% if ticket.status == "Negociação"%>
+                      <td> <span class="new badge  green darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+                      <% end %>
+                      <% if ticket.status == "Agendado"%>
+                      <td> <span class="new badge deep-orange darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+                      <% end %>
+                      <% if ticket.status == "Matriculado"%>
+                      <td> <span class="new badge  light-blue darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+                      <% end %>
+                      <% if ticket.status == "SemPotencial"%>
+                      <td> <span class="new badge grey darken-1"data-badge-caption=""><%= ticket.status %></td></span>
+                      <% end %>
+                      <% if ticket.status == "NãoAtende"%>
+                      <td> <span class="new badge red"data-badge-caption=""><%= ticket.status %></td></span>
+                      <% end %>
+                      <% if ticket.status == "Inscrição"%>
+                      <td> <span class="new badge purple darken-4"data-badge-caption=""><%= ticket.status %></td></span>
+                      <% end %>
+                    <td>
+                          <div class="ticket-form"><%= ticket.responsible.name %></td>
+                              <td>
+                          <div class="ticket-form"><%= ticket.created_at %></td>
+                        </div>
+
+                              <td><%= link_to 'Mostrar ações', ticket %></td>
+                              <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+                 <% else %>
+
+                           <% end %>
+                          <% end %>
+                        </tbody>
+                      </table>
+                      <br>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                        </div>
+
+                </p>
+              </ul>
+          
+          <ul class="collapsible" data-collapsible="expandable">
+              <li>
+                <div class="collapsible-header" ><i class="mdi-navigation-chevron-right"></i><a onClick="expandAll();" name="987"class="hr"/><i class="material-icons">notifications_off</i>Não Atendido</a>
+                <span data-badge-caption="Registro do Dia |" class="badge" ><%=@total_of_dayattended%>
+                 <span data-badge-caption="Registro total" class="badge"  ><%=@total_of_attended%> </span>
+                </div>
+                <div class="collapsible-body"><p>
+
+          <table>
+            <thead>
+              <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Email</th>
+              <th>Curso</th>
+              <th>Origem</th>
+              <th>Responsável</th>
+
+              <th colspan="3"></th>
+            </tr>
+              <hr class="hr-red">
+            </thead>
+
+            <tbody>
+              <% @tickets.each do |ticket| %>
+          <% if ticket.is_nomet?  %>
+                             <tr>
+                     <td>
+                <div class="ticket-form">
+                  <%= ticket.name %></td>
+                <td>
+                  <div class="ticket-form">
+                    <%= ticket.telephone %></td>
+                  <td>
+                    <div class="ticket-form">
+                      <%= ticket.email %></td>
+                    <td>
+                      <div class="ticket-form">
+                        <%= ticket.course.name %></td>
+                      <td>
+                      <div class="ticket-form">
+                        <%= ticket.source.name %></td>
+                    <td>
+                          <div class="ticket-form"><%= ticket.responsible.name %></td>
+                              <td>
+                          <div class="ticket-form"><%= ticket.created_at %></td>
+                        </div>
+                              <td><%= link_to 'Mostrar ações', ticket %></td>
+                              <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+                            <% end %>
+                          <% end %>
+                        </tbody>
+                      </table>
+                      <br>
+                      <tbody></tbody>
+                    </table>
+                    
+                  </div>
+     
+                </ul>
+     
+  
+      
+
+    
+    <ul class="collapsible" data-collapsible="expandable">
+        <li>
+
+          <div class="collapsible-header" ><i class="mdi-navigation-chevron-right" ></i><a onClick="expandAll();" name="987"class="hr"/><i class="material-icons">fiber_new</i>Novo</a>
+           <span data-badge-caption="Registro do dia |" class="badge"  ><%=@total_of_daynew%> 
+                 <span data-badge-caption="Registro total" class="badge"  ><%=@total_of_new%> </span>
+          </div></i>
+          <div class="collapsible-body"><p>
+      <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Email</th>
+          <th>Curso</th>
+          <th>Origem</th>
+          <th>Responsável</th>
+
+          <th colspan="3"></th>
+        </tr>
+        <hr class="hr-red">
+      </thead>
+      <tbody>
+        <% @tickets.each do |ticket| %>
+          <% if ticket.is_new?  %>
+              <tr>
+              <td>
+                <div class="new-form">
+                  <%= ticket.name %></td>
+                <td>
+                  <div class="new-form">
+                    <%= ticket.telephone %></td>
+                  <td>
+                    <div class="new-form">
+                      <%= ticket.email %></td>
+                    <td>
+                      <div class="new-form">
+                        <%= ticket.course.name %></td>
+                         <td>
+                        <div class="new-form">
+                    <%= ticket.source.name %></td>
+                    <td>
+                          <div class="new-form"><%= ticket.responsible.name %></td>
+                              <td>
+                          <div class="new-form"><%= ticket.created_at %></td>
+                        </div>
+                        <td>
+                          <%= link_to 'Mostrar ações', ticket %></td>
+                        <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+
+                      <% else %>
+                      <% end %>
+                    <% end %>
+
+                  </tbody>
+                </table><br>
+
+              </table>
+
+            </div>
+         
+          </div>
+          
+        
+          <ul class="collapsible" data-collapsible="expandable">
+              <li>
+                <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i><a onClick="expandAll();" name="987"class="hr"/><i class="material-icons">contacts</i>Negociação</a> 
+                
+                 <span data-badge-caption="Registro do dia |" class="badge  "  ><%=@total_of_daycontact%> 
+                 <span data-badge-caption="Registro total" class=" badge "  ><%=@total_of_contact%> </span>
+                   
+                 </div>
+               
+                <div class="collapsible-body"><p>
+             
+            
+                  
+          <table>
+            <thead>
+              <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Email</th>
+              <th>Curso</th>
+              <th>Origem</th>
+              <th>Responsável</th>
+
+              <th colspan="3"></th>
+            </tr>
+              <hr class="hr-red">
+            </thead>
+
+            <tbody>
+              <% @tickets.each do |ticket| %>
+                <% if ticket.is_contact?  %>
+                  <tr>
+                     <td>
+                <div class="pending-form">
+                  <%= ticket.name %></td>
+                <td>
+                  <div class="pending-form">
+                    <%= ticket.telephone %></td>
+                  <td>
+                    <div class="pending-form">
+                      <%= ticket.email %></td>
+                    <td>
+                      <div class="pending-form">
+                        <%= ticket.course.name %></td>
+                        <td> <div class="pending-form">
+                    <%= ticket.source.name %></td>
+                    <td>
+                       <div class="pending-form"><%= ticket.responsible.name %></td>
+                              <td>
+                          <div class="pending-form"><%= ticket.created_at %></td>
+                        </div>
+                              <td><%= link_to 'Mostrar ações', ticket %></td>
+                              <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+
+                            <% else %>
+                            <% end %>
+                          <% end %>
+                          
+                        </tbody>
+                        
+                      </table>
+                      <br>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+              
+
+                  
+                </div>
+
+                </p>
+              </ul>
+          <% if current_user && (current_user.email == 'italo.volotao@escolacem.com.br' || current_user.email == 'cleiton.goncalves@escolacem.com.br' || current_user.email == 'paloma.vieira@escolacem.com.br') %>
+              
+                <div class="">
+                  <div class="container">
+                  <ul class="collapsible" data-collapsible="expandable">
+                      <li>
+                        <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i><a onClick="expandAll();" name="987"class="hr"/><i class="material-icons">perm_contact_calendar</i>Agendado</a>
+                  <span data-badge-caption="Registro do dia |" class="badge  "  ><%=@total_of_dayagend%> 
+                 <span data-badge-caption="Registro total" class="badge"  ><%=@total_of_agend%> </span>
+                        </div>
+                        <div class="collapsible-body"><p>
+
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Curso</th>
+                        <th>Origem</th>
+                        <th>Responsável</th>
+
+                        <th colspan="3"></th>
+                      </tr>
+                      <hr class="hr-red">
+
+                    </thead>
+                    <tbody>
+                      <% @tickets.each do |ticket| %>
+                        <% if ticket.is_scheduled?  %>
+                  <tr>
+                     <td>
+                <div class="registration-form">
+                  <%= ticket.name %></td>
+                <td>
+                  <div class="registration-form">
+                    <%= ticket.telephone %></td>
+                  <td>
+                    <div class="registration-form">
+                      <%= ticket.email %></td>
+                    <td>
+                      <div class="registration-form">
+                        <%= ticket.course.name %></td>
+                          <td> <div class="registration-form">
+                    <%= ticket.source.name %></td>
+                       <td>
+                          <div class="registration-form"><%= ticket.responsible.name %></td>
+                              <td>
+                          <div class="registration-form"><%= ticket.created_at %></td>
+                        </div>
+                                      <td>
+                                        <%= link_to 'Mostrar ações', ticket %></td>
+                                      <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+                                    <% else %>
+                                    <% end %>
+                                  <% end %>
+                                </tbody>
+                              </table><br>
+                            </table>
+                              </div>
+                                  </div>
+                                <% end %>
+            <% if current_user && (current_user.email == 'sabrina.paiva@escolacem.com.br' || current_user.email == 'jusselma.campos@escolacem.com.br' || current_user.email == 'nova@escolacem.com.br') %>
+
+            <div class="">
+                  <div class="container">
+                  <ul class="collapsible" data-collapsible="expandable">
+                      <li>
+                        <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i><a onClick="expandAll();" name="987"class="hr"/><i class="material-icons">perm_contact_calendar</i>Inscritos</a>
+                  <span data-badge-caption="Registro do dia |" class="badge  "  ><%=@total_of_daysubscription%> 
+                 <span data-badge-caption="Registro total" class="badge "  ><%=@total_of_subscription%> </span>
+                        </div>
+                        <div class="collapsible-body"><p>
+
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Curso</th>
+                        <th>Origem</th>
+                        <th>Responsável</th>
+
+                        <th colspan="3"></th>
+                      </tr>
+                      <hr class="hr-red">
+
+                    </thead>
+                    <tbody>
+                      <% @tickets.each do |ticket| %>
+                        <% if ticket.is_inscrition?  %>
+                  <tr>
+                     <td>
+                <div class="registration-form">
+                  <%= ticket.name %></td>
+                <td>
+                  <div class="registration-form">
+                    <%= ticket.telephone %></td>
+                  <td>
+                    <div class="registration-form">
+                      <%= ticket.email %></td>
+                    <td>
+                      <div class="registration-form">
+                        <%= ticket.course.name %></td>
+                     <td><div class="registration-form">
+                    <%= ticket.source.name %></td>
+                       <td>
+                          <div class="registration-form"><%= ticket.responsible.name %></td>
+                              <td>
+                          <div class="registration-form"><%= ticket.created_at %></td>
+                        </div>
+                                      <td>
+                                        <%= link_to 'Mostrar ações', ticket %></td>
+                                      <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+                                    <% else %>
+                                    <% end %>
+                                  <% end %>
+                                </tbody>
+                              </table><br>
+                            </table>
+                              </div>
+                        
+                        </div>
+                        <% end %>
+                         <div class="">
+                  <div class="container">
+                  <ul class="collapsible" data-collapsible="expandable">
+                      <li>
+                        <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i><a onClick="expandAll();" name="987"class="hr"/><i class="material-icons">check</i>Matriculado</a>
+                        <span data-badge-caption="Registro do dia |" class=" badge  white" ><%=@total_of_dayregistration%> 
+                     <span data-badge-caption="Registro total" class=" badge white"  ><%=@total_of_registration%> </span>
+                        </div>
+                        <div class="collapsible-body"><p>
+
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Curso</th>
+                        <th>Origem</th>
+                        <th>Responsável</th>
+
+                        <th colspan="3"></th>
+                      </tr>
+                      <hr class="hr-red">
+
+                    </thead>
+                    <tbody>
+                      <% @tickets.each do |ticket| %>
+                        <% if ticket.is_registration?  %>
+
+                  <tr>
+                     <td>
+                <div class="registered-form">
+                  <%= ticket.name %></td>
+                <td>
+                  <div class="registered-form">
+                    <%= ticket.telephone %></td>
+                  <td>
+                    <div class="registered-form">
+                      <%= ticket.email %></td>
+                    <td>
+                      <div class="registered-form">
+                        <%= ticket.course.name %></td>
+                         <td> 
+                            <div class="registered-form">
+                           <%= ticket.source.name %></td>
+                        <td>
+                          <div class="registered-form"><%= ticket.responsible.name %></td>
+                              <td>
+                          <div class="registered-form"><%= ticket.created_at %></td>
+                        </div>
+                                      <td>
+                                        <%= link_to 'Mostrar ações', ticket %></td>
+                                      <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+                                    <% else %>
+                                    <% end %>
+                                  <% end %>
+                                </tbody>
+                              </table><br>
+                            </table>
+                            
+                          </div>
+                          
+                        </div>
+
+                        <div class="container">
+
+                          <ul class="collapsible" data-collapsible="expandable">
+                              <li>
+                                <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i><a onClick="expandAll();" name="987" class="hr"/><i class="material-icons">person_outline</i>Sem Potencial</a>
+                                <span data-badge-caption="Registro do dia |" class="badge  "  ><%=@total_of_daypotential%> 
+                                <span data-badge-caption="Registro total" class="badge  "  ><%=@total_of_potential%> </span>
+                                </div>
+                                <div class="collapsible-body"><p>
+                        <table>
+                          <thead>
+                             <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Curso</th>
+                            <th>Origem</th>
+                            <th>Responsável</th>
+                            <th colspan="3"></th>
+                          </tr>
+                            <hr class="hr-red">
+                          </thead>
+
+                          <tbody>
+                            <% @tickets.each do |ticket| %>
+                              <% if ticket.is_potential?  %>
+                                <tr>
+                                  <td>
+                              <div class="potential-form">
+                                <%= ticket.name %></td>
+                              <td>
+                                <div class="potential-form">
+                                  <%= ticket.telephone %></td>
+                                <td>
+                                  <div class="potential-form">
+                                    <%= ticket.email %></td>
+                                  <td>
+                                    <div class="potential-form">
+                                      <%= ticket.course.name %></td>
+                                       <td>
+                                         <div class="potential-form">
+                                          <%= ticket.source.name %></td>
+                                          <td>
+                                        <div class="potential-form"><%= ticket.responsible.name %></td>
+                                            <td>
+                                        <div class="potential-form"><%= ticket.created_at %></td>
+                                      </div>
+                                            <td><%= link_to 'Mostrar ações', ticket %></td>
+                                            <td><%= link_to 'Editar Status', edit_ticket_path(ticket) %></td>
+                                          <% else %>
+                                          <% end %>
+                                        <% end %>
+                                      </div>
+
+                                      </tbody>
+                                    </table>
+                                    <br>
+                                    <tbody></tbody>
+                                  </table>
+                                </div>
+                           
+                              </div>

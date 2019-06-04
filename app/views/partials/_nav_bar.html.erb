@@ -1,0 +1,62 @@
+
+<script>
+ $(document).ready(function(){
+   $('.modal').modal();
+   $('.dropdown-trigger').dropdown();
+});        
+</script>
+<nav role="navigation">
+  <div class="nav-wrapper col s12">
+    <a href="/" class="brand-logo" class="tooltip" title="Redireciona a página inicial">
+      <%= image_tag "ico-logo-cem-unopar-mix.png" %>
+      <span class="logo-title"></span>
+    </a>
+    <div>
+    
+
+    <ul class="right hide-on-med-and-down">
+    
+        <li>
+        <a href='<%=new_ticket_path%>' class='btn-smal' <span class="tooltip" title="Adicionar Atendimento">
+          <i class="material-icons">add</i>
+              
+          <% if current_user && (current_user.email == 'joaopedro@admin' || current_user.email == 'admin@admin' || current_user.email == 'vanessa.souza@escolacem.com.br' || current_user.email == 'sabrina.paiva@escolacem.com.br' || current_user.email == 'italo.volotao@escolacem.com.br') %>
+        <li>
+            <a href='<%=dashboard_index_path%>' <span class="tooltip" title="Gráficos">
+              <i class="small material-icons">insert_chart</i>
+         
+           </a>
+
+                  <% end %>
+
+          
+          <li><%= link_to 'Origem', sources_path%></li>
+          <li><%= link_to 'Curso', courses_path%></li>
+          <li><%= link_to 'Leads', tickets_path%></li>
+          
+          <li>
+             
+
+           <% if user_signed_in? %>
+              
+           <li><a class='dropdown-trigger' href='#' data-target='dropdown1' ><i class="material-icons right">
+           arrow_drop_down</i><%= current_user.name %><i class="material-icons left">
+           person</i>
+
+           </a>         
+
+               
+            <ul id='dropdown1' class='dropdown-content'>
+             <li><%= link_to 'Alterar senha',edit_password_path %></li>
+               <% if current_user && (current_user.superadmin? || current_user.manager? )  %>
+             <li> <%= link_to 'Usuários',users_path%> </li>
+                        <% end %>
+          <li><%= link_to(destroy_user_session_path, {:class => "nav-link", :method => :delete}) do %>Sair</li>
+              </ul>
+
+            <% end %>
+            
+          </li>
+      </div>
+    </nav>
+  <% end %>

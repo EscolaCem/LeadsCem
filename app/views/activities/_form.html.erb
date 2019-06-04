@@ -1,0 +1,6 @@
+<%= simple_form_for @activity do |f| %>
+  <%= f.input :description %>
+  <%= f.input :date %>
+  <%= f.association :ticket, collection: @tickets.all.collect {|t| [ t.problem, t.id ] }, include_blank: "Selecione o Ticket" %>
+  <%= f.button :submit %>
+<% end %>

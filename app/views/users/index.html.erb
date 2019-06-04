@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+  <h4>Usuários</h4>
+  <td><%= link_to 'Novo Usuário', new_user_path,class: 'btn-small blue' %></td>
+  <% if current_user && (current_user.superadmin? || current_user.manager? )%>
+    <% else controller.redirect_to root_path %>
+          <% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Nome</th>
+      <th>Nível</th>
+      <th>Unidade</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= user.kind %></td>
+        <td><%= user.company.name %></td>
+        <td><%= link_to 'Editar', edit_user_path(user) %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>

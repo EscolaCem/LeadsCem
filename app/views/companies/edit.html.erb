@@ -1,0 +1,8 @@
+
+<h4>Editar Unidade</h4>
+<% if current_user && (current_user.superadmin? || current_user.manager?)%>
+  <% else controller.redirect_to root_path %>
+        <% end %>
+<%= render 'form', company: @company %>
+
+<%= link_to 'Show', @company %> |

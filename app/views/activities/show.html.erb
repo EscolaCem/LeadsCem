@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @activity.description %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @activity.date %>
+</p>
+
+
+
+<%= link_to 'Editar', edit_activity_path(@activity) %> |
+<%= link_to 'Voltar', ticket_activity_path %>
