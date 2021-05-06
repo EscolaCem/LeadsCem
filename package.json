@@ -2,7 +2,7 @@
   "name": "CemHelp2",
   "private": true,
   "dependencies": {
-    "highcharts": "^7.1.1",
+    "highcharts": "^9.0.0",
     "jquery-mask-plugin": "^1.14.15"
   }
 }
